@@ -2,7 +2,7 @@
 
 FROM golang:1.20
 
-WORKDIR /app
+WORKDIR /tmp/app
 
 COPY go.mod ./
 
@@ -10,8 +10,8 @@ COPY go.mod ./
 
 COPY *.go ./
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o /hello-docker
+RUN CGO_ENABLED=0 GOOS=linux go build -o /tmp/hello-docker
 
 EXPOSE 4000
 
-ENTRYPOINT ["/hello-docker"]
+ENTRYPOINT ["/tmp/hello-docker"]
