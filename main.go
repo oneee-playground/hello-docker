@@ -8,7 +8,9 @@ import (
 
 func main() {
 	http.Handle("/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("Hello Docker!"))
+		log.Println("received request")
 	}))
 
 	var wg sync.WaitGroup
