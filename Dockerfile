@@ -10,6 +10,8 @@ COPY go.mod ./
 
 COPY *.go ./
 
+ENV GOCACHE=/tmp/.cache
+
 RUN CGO_ENABLED=0 GOOS=linux go build -o /hello-docker
 
 EXPOSE 4000
