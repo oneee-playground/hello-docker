@@ -1,18 +1,18 @@
 # syntax=docker/dockerfile:1
 
-FROM golang:1.20
+FROM golang:1.20 as build
 
 WORKDIR /app
 
 COPY go.mod ./
 
-# RUN go mod download
-
 COPY *.go ./
 
-ENV GOCACHE=/tmp/.cache
+RUN CGO_ENABLED=0 GOOS=linux go build -o /app
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o /hello-docker
+FROM alpine:latest
+
+COPY --from=build /app /
 
 EXPOSE 4000
 
