@@ -10,7 +10,15 @@ func main() {
 	http.Handle("/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("Hello Docker!"))
-		log.Println("received request")
+	}))
+
+	http.Handle("/vary", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodGet {
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte(`{"foo":"bar"}`))
+		} else {
+			w.WriteHeader(http.StatusTeapot)
+		}
 	}))
 
 	var wg sync.WaitGroup
